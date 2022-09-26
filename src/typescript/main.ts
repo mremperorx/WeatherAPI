@@ -19,16 +19,8 @@ const locationBtn = <HTMLInputElement>(
     document.querySelector('#btn')
 );
 
-const infoTxt = <HTMLFormElement>(
-    document.querySelector('info-txt')
-);
-
-let api;
 
 let cities = JSON.parse(localStorage.getItem("cities") || "[]");
-
-
-
 
 displayCards();
 window.addEventListener("load", () => weatherCardsContainer.style.opacity = "1");
