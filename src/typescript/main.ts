@@ -15,15 +15,15 @@ const scaleSwitch = <HTMLInputElement>(
   document.querySelector("#temperature-scale")
 );
 
-const locationBtn = <HTMLInputElement>( 
-    document.querySelector('#btn')
-);
-
+const locationBtn = <HTMLButtonElement>document.querySelector("#btn");
 
 let cities = JSON.parse(localStorage.getItem("cities") || "[]");
 
 displayCards();
-window.addEventListener("load", () => weatherCardsContainer.style.opacity = "1");
+window.addEventListener(
+  "load",
+  () => (weatherCardsContainer.style.opacity = "1")
+);
 
 class City {
   city: string;
@@ -47,14 +47,13 @@ function save(): void {
   localStorage.setItem("cities", JSON.stringify(cities));
 }
 
-
 async function getWeather(): Promise<void> {
   try {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${input.value}&appid=191210cdbee0c2e5d85f1e8ef6320d1c`,
       { mode: "cors" }
     );
-    const data = await response.json(); 
+    const data = await response.json();
     createCityCard(data);
     scaleToggleContainer.style.display = "block";
     console.log(data);
@@ -63,39 +62,42 @@ async function getWeather(): Promise<void> {
   }
 }
 
-
-locationBtn.addEventListener('click', () => {
-    if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(DisplayWeather);
-    }
+locationBtn.addEventListener("click", () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(DisplayWeather);
+  }
 });
 
-function DisplayWeather(position){
-    const {latitude, longitude} = position.coords;
-    console.log(position)
-     fetch (`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=3573b251c5e5d46c32adca397365012a`)
-     .then(response=> response.json())
-     .then(data => ShowWeather(data));
-     
+function DisplayWeather(position) {
+  const { latitude, longitude } = position.coords;
+  console.log(position);
+  fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=3573b251c5e5d46c32adca397365012a`
+  )
+    .then((response) => response.json())
+    .then((data) => ShowWeather(data));
 }
-  
-function ShowWeather(data: any): void {
-    const cityAndCountry = `${data["name"]}, ${data["sys"]["country"]}`;
-    const realTemperature = Math.round(((data["main"]["temp"]) * 9) / 5 + 32).toString() +"&deg";
-    const icon = `<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${data.weather[0]["icon"]}.svg">`;
-    const description = data["weather"][0]["description"];
-    const cityCard = new City(cityAndCountry, realTemperature, icon, description);
 
-    cities.push(cityCard);
-    displayCards();
-    scaleSwitch.checked = false;
-    temperatures = [...Array.from(document.querySelectorAll(".temperature"))];
-    save();
-  }
+function ShowWeather(data: any): void {
+  const cityAndCountry = `${data["name"]}, ${data["sys"]["country"]}`;
+  const realTemperature =
+    Math.round((data["main"]["temp"] * 9) / 5 + 32).toString() + "&deg";
+  const icon = `<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${data.weather[0]["icon"]}.svg">`;
+  const description = data["weather"][0]["description"];
+  const cityCard = new City(cityAndCountry, realTemperature, icon, description);
+
+  cities.push(cityCard);
+  displayCards();
+  scaleSwitch.checked = false;
+  temperatures = [...Array.from(document.querySelectorAll(".temperature"))];
+  save();
+}
 
 function createCityCard(data: any): void {
   const cityAndCountry = `${data["name"]}, ${data["sys"]["country"]}`;
-  const realTemperature = Math.round(((data["main"]["temp"] - 273.15) * 9) / 5 + 32).toString() +"&deg";
+  const realTemperature =
+    Math.round(((data["main"]["temp"] - 273.15) * 9) / 5 + 32).toString() +
+    "&deg";
   const icon = `<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${data.weather[0]["icon"]}.svg">`;
   const description = data["weather"][0]["description"];
   const cityCard = new City(cityAndCountry, realTemperature, icon, description);
@@ -110,7 +112,7 @@ function createCityCard(data: any): void {
 function displayCards(): void {
   if (cities.length === 0) {
     weatherCardsContainer.textContent = "hi";
-  } 
+  }
 
   weatherCardsContainer.innerHTML = cities
     .map((city: any, i: number) => {
@@ -144,6 +146,4 @@ scaleSwitch.addEventListener("click", changeScale);
 
 let temperatures = [...Array.from(document.querySelectorAll(".temperature"))];
 
-
 export { scaleSwitch, temperatures };
-
