@@ -99,22 +99,23 @@ function createCityCard(data: any): void {
   const icon = `<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${data.weather[0]["icon"]}.svg">`;
   const description = data["weather"][0]["main"];
   const cityCard = new City(cityAndCountry, realTemperature, icon, description);
-  if (description.textContent == "Clear") {
+
+  if (description == "Clear") {
     document.body.style.backgroundImage =
       "url(https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif)";
-  } else if (description.textContent == "Clouds") {
+  } else if (description == "Clouds") {
     document.body.style.backgroundImage =
       "url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
-  } else if (description.textContent == "Haze") {
+  } else if (description == "Haze") {
     document.body.style.backgroundImage =
       "url('https://mdbgo.io/ascensus/mdb-advanced/img/Haze.gif')";
-  } else if (description.textContent == "Rain") {
+  } else if (description == "Rain") {
     document.body.style.backgroundImage =
       "url('https://mdbgo.io/ascensus/mdb-advanced/img/Rain.gif')";
-  } else if (description.textContent == "Snow") {
+  } else if (description == "Snow") {
     document.body.style.backgroundImage =
       "url('https://mdbgo.io/ascensus/mdb-advanced/img/Snow.gif')";
-  } else if (description.textContent == "Thunderstorm") {
+  } else if (description == "Thunderstorm") {
     document.body.style.backgroundImage =
       "url('https://mdbgo.io/ascensus/mdb-advanced/img/Thunderstorm.gif')";
   }
