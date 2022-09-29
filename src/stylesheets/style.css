@@ -8,7 +8,7 @@
   --dark-purple: #353b6e;
   --dark: #113a5d;
   --darker: #062743;
-  --blue: #43AFFC;
+  --blue: #43affc;
 }
 
 *,
@@ -27,12 +27,12 @@ html {
 body {
   height: 100vh;
   font-family: "Open Sans", sans-serif;
-  background-color: var(--blue);
+  background-color: var(--purple);
 }
 
 header {
   height: 8vh;
-  background: var(--purple);
+  background: var(--dark-purple);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +61,7 @@ form {
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
   background: white;
 }
-header :where(input, button){
+header :where(input, button) {
   width: 40%;
   height: 55px;
   border: none;
@@ -69,14 +69,14 @@ header :where(input, button){
   font-size: 18px;
   border-radius: 7px;
 }
-button{
+button {
   color: #fff;
   cursor: pointer;
   background: var(--dark-purple);
   transition: 0.3s ease;
 }
 
-button:hover{
+button:hover {
   background: #1d9ffc;
 }
 
@@ -109,7 +109,7 @@ h1 {
 .display {
   position: relative;
   width: 25rem;
-  background: var(--white);
+  background: whitesmoke;
   margin: 0 2rem 2rem 2rem;
   padding: 2rem;
   border-radius: 0.8rem;
@@ -273,7 +273,6 @@ h1 {
   transition: 0.3s ease;
 }
 
-
 .scale-container {
   position: fixed;
   left: 90%;
@@ -344,14 +343,14 @@ h1 {
   color: rgb(18, 190, 233);
 }
 
-footer{
-  background-color: var(--purple);
+footer {
+  background-color: var(--dark-purple);
   bottom: 0;
   font-size: 1.8rem;
   left: 0;
   line-height: 1.4;
   padding: 14px;
-  position: absolute;
+  position: fixed;
   right: 0;
   width: 100%;
   text-align: center;
@@ -384,18 +383,18 @@ footer{
     font-weight: lighter;
     padding: 1rem 0;
   }
-  
+
   #display .temperature {
     font-size: 5rem;
     font-weight: bolder;
     padding-bottom: 1rem;
   }
-  
+
   #display .icon img {
     width: 8rem;
     height: 8rem;
   }
-  
+
   #error-modal {
     width: 25rem;
   }

@@ -3,56 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./src/stylesheets/style.css">
-    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"
-    data-auto-a11y="true"></script>
+    <link rel="stylesheet" href="./src/stylesheets/style.css" />
+    <script
+      src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"
+      data-auto-a11y="true"
+    ></script>
     <link rel="shortcut icon" href="./public/sun.png" />
     <title>Weather API</title>
   </head>
   <body>
-    <body>
-      <header>
-        <form>
-          <div class="search">
-            <table>
-              <tr>
-                <td>
-                  <input type="text" placeholder="Search city" aria-label="Search for a city"/>
-                </td>
-                <td>
-                  <a class="search-icon"><i class="fas fa-search"></i></a>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </form>
-        <button id="btn">Get Device Location</button>
-      </header>
-      <h1>Weather List <i class="fas fa-cloud-sun"></i></h1>
-      <div class="weather-cards-container"></div>
-      <div id="error-modal-container">
-        <div class="error-modal" id="error-modal">
-          <div class="close-modal">x</div>
-          <div class="modal-info">
-            <span><i class="far fa-times-circle"></i></span>
-            <h2>Ooops!</h2>
-            <p>Your location could not be found.</p>
-            <button id="btn1">Close</button>
-          </div>
+    <header>
+      <form>
+        <div class="search">
+          <table>
+            <tr>
+              <td>
+                <input
+                  type="text"
+                  placeholder="Search city"
+                  aria-label="Search for a city"
+                />
+              </td>
+              <td>
+                <a class="search-icon"><i class="fas fa-search"></i></a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </form>
+      <button id="btn">Get Device Location</button>
+    </header>
+    <h1>Weather List <i class="fas fa-cloud-sun"></i></h1>
+    <div class="weather-cards-container"></div>
+    <div id="error-modal-container">
+      <div class="error-modal" id="error-modal">
+        <div class="close-modal">x</div>
+        <div class="modal-info">
+          <span><i class="far fa-times-circle"></i></span>
+          <h2>Ooops!</h2>
+          <p>Your location could not be found.</p>
+          <button id="btn1">Close</button>
         </div>
       </div>
-  
-      <div id="overlay"></div>
+    </div>
 
-      <div class="scale-container">
-        <div class="scale-button-container">
-          <input type="checkbox" id="temperature-scale" />
-          <label for="temperature-scale" class="scale-button">
-            <div class="scale-toggle"></div>
-          </label>
-        </div>
+    <div id="overlay"></div>
+
+    <div class="scale-container">
+      <div class="scale-button-container">
+        <input type="checkbox" id="temperature-scale" />
+        <label for="temperature-scale" class="scale-button">
+          <div class="scale-toggle"></div>
+        </label>
       </div>
-      <footer>Created by <a href="https://github.com/mremperorx" target="_blank">Majed El-Naser</a> &copy;</footer>;
+    </div>
+    <footer>
+      Created by
+      <a href="https://github.com/mremperorx" target="_blank">Majed El-Naser</a>
+      &copy;
+    </footer>
+    ;
     <script type="module" src="/src/typescript/main.ts"></script>
   </body>
 </html>

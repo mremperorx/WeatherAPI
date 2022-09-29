@@ -6,15 +6,12 @@ const input = <HTMLInputElement>document.querySelector(`input[type="text"]`);
 const weatherCardsContainer = <HTMLDivElement>(
   document.querySelector(".weather-cards-container")
 );
-
 const scaleToggleContainer = <HTMLDivElement>(
   document.querySelector(".scale-container")
 );
-
 const scaleSwitch = <HTMLInputElement>(
   document.querySelector("#temperature-scale")
 );
-
 const locationBtn = <HTMLButtonElement>document.querySelector("#btn");
 
 let cities = JSON.parse(localStorage.getItem("cities") || "[]");
@@ -70,7 +67,6 @@ locationBtn.addEventListener("click", () => {
 
 function DisplayWeather(position) {
   const { latitude, longitude } = position.coords;
-  console.log(position);
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=3573b251c5e5d46c32adca397365012a`
   )
@@ -85,7 +81,9 @@ function ShowWeather(data: any): void {
   const icon = `<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${data.weather[0]["icon"]}.svg">`;
   const description = data["weather"][0]["description"];
   const cityCard = new City(cityAndCountry, realTemperature, icon, description);
-
+  if (description.textContent == "Clear") {
+    document.body.style.backgroundImage = "url('public/clear.gif')";
+  }
   cities.push(cityCard);
   displayCards();
   scaleSwitch.checked = false;
@@ -99,8 +97,27 @@ function createCityCard(data: any): void {
     Math.round(((data["main"]["temp"] - 273.15) * 9) / 5 + 32).toString() +
     "&deg";
   const icon = `<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${data.weather[0]["icon"]}.svg">`;
-  const description = data["weather"][0]["description"];
+  const description = data["weather"][0]["main"];
   const cityCard = new City(cityAndCountry, realTemperature, icon, description);
+  if (description.textContent == "Clear") {
+    document.body.style.backgroundImage =
+      "url(https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif)";
+  } else if (description.textContent == "Clouds") {
+    document.body.style.backgroundImage =
+      "url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
+  } else if (description.textContent == "Haze") {
+    document.body.style.backgroundImage =
+      "url('https://mdbgo.io/ascensus/mdb-advanced/img/Haze.gif')";
+  } else if (description.textContent == "Rain") {
+    document.body.style.backgroundImage =
+      "url('https://mdbgo.io/ascensus/mdb-advanced/img/Rain.gif')";
+  } else if (description.textContent == "Snow") {
+    document.body.style.backgroundImage =
+      "url('https://mdbgo.io/ascensus/mdb-advanced/img/Snow.gif')";
+  } else if (description.textContent == "Thunderstorm") {
+    document.body.style.backgroundImage =
+      "url('https://mdbgo.io/ascensus/mdb-advanced/img/Thunderstorm.gif')";
+  }
 
   cities.push(cityCard);
   displayCards();
@@ -116,7 +133,7 @@ function displayCards(): void {
 
   weatherCardsContainer.innerHTML = cities
     .map((city: any, i: number) => {
-      return `<div class="display" id="display" data-index=${i}>
+      return `<div class="display" id="display" data-index=${i}">
       <span class="close">x</span>
       <h2 class="name">${city.city}</h2>
       <p class="icon">${city.icon}</p>
@@ -125,6 +142,7 @@ function displayCards(): void {
     </div>`;
     })
     .join("");
+
   const closeIcons = [...Array.from(document.querySelectorAll(".close"))];
   closeIcons.forEach((icon) =>
     icon.addEventListener("click", (e) => {
