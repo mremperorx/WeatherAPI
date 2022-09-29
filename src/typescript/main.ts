@@ -79,11 +79,9 @@ function ShowWeather(data: any): void {
   const realTemperature =
     Math.round((data["main"]["temp"] * 9) / 5 + 32).toString() + "&deg";
   const icon = `<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${data.weather[0]["icon"]}.svg">`;
-  const description = data["weather"][0]["description"];
+  const description = data["weather"][0]["main"];
   const cityCard = new City(cityAndCountry, realTemperature, icon, description);
-  if (description.textContent == "Clear") {
-    document.body.style.backgroundImage = "url('public/clear.gif')";
-  }
+
   cities.push(cityCard);
   displayCards();
   scaleSwitch.checked = false;
@@ -101,23 +99,17 @@ function createCityCard(data: any): void {
   const cityCard = new City(cityAndCountry, realTemperature, icon, description);
 
   if (description == "Clear") {
-    document.body.style.backgroundImage =
-      "url(https://mdbgo.io/ascensus/mdb-advanced/img/clear.gif)";
+    document.body.style.backgroundImage = "url(src/images/clear.gif)";
   } else if (description == "Clouds") {
-    document.body.style.backgroundImage =
-      "url('https://mdbgo.io/ascensus/mdb-advanced/img/clouds.gif')";
+    document.body.style.backgroundImage = "url('src/images/clouds.gif')";
   } else if (description == "Haze") {
-    document.body.style.backgroundImage =
-      "url('https://mdbgo.io/ascensus/mdb-advanced/img/Haze.gif')";
+    document.body.style.backgroundImage = "url('src/images/Haze.gif')";
   } else if (description == "Rain") {
-    document.body.style.backgroundImage =
-      "url('https://mdbgo.io/ascensus/mdb-advanced/img/Rain.gif')";
+    document.body.style.backgroundImage = "url('src/images/Rain.gif')";
   } else if (description == "Snow") {
-    document.body.style.backgroundImage =
-      "url('https://mdbgo.io/ascensus/mdb-advanced/img/Snow.gif')";
+    document.body.style.backgroundImage = "url('src/images/Snow.gif')";
   } else if (description == "Thunderstorm") {
-    document.body.style.backgroundImage =
-      "url('https://mdbgo.io/ascensus/mdb-advanced/img/Thunderstorm.gif')";
+    document.body.style.backgroundImage = "url('src/images/Thunderstorm.gif')";
   }
 
   cities.push(cityCard);
