@@ -16,12 +16,6 @@ const locationBtn = <HTMLButtonElement>document.querySelector("#btn");
 
 let cities = JSON.parse(localStorage.getItem("cities") || "[]");
 
-displayCards();
-window.addEventListener(
-  "load",
-  () => (weatherCardsContainer.style.opacity = "1")
-);
-
 class City {
   city: string;
   temperature: string;
@@ -71,16 +65,30 @@ function DisplayWeather(position) {
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=3573b251c5e5d46c32adca397365012a`
   )
     .then((response) => response.json())
-    .then((data) => ShowWeather(data));
+    .then((data) => showWeather(data));
 }
 
-function ShowWeather(data: any): void {
+function showWeather(data: any): void {
   const cityAndCountry = `${data["name"]}, ${data["sys"]["country"]}`;
   const realTemperature =
     Math.round((data["main"]["temp"] * 9) / 5 + 32).toString() + "&deg";
   const icon = `<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${data.weather[0]["icon"]}.svg">`;
   const description = data["weather"][0]["main"];
   const cityCard = new City(cityAndCountry, realTemperature, icon, description);
+
+  if (description == "Clear") {
+    document.body.style.backgroundImage = "url(src/images/clear.gif)";
+  } else if (description == "Clouds") {
+    document.body.style.backgroundImage = "url('src/images/clouds.gif')";
+  } else if (description == "Haze") {
+    document.body.style.backgroundImage = "url('src/images/Haze.gif')";
+  } else if (description == "Rain") {
+    document.body.style.backgroundImage = "url('src/images/Rain.gif')";
+  } else if (description == "Snow") {
+    document.body.style.backgroundImage = "url('src/images/Snow.gif')";
+  } else if (description == "Thunderstorm") {
+    document.body.style.backgroundImage = "url('src/images/Thunderstorm.gif')";
+  }
 
   cities.push(cityCard);
   displayCards();
@@ -119,7 +127,7 @@ function createCityCard(data: any): void {
   save();
 }
 
-function displayCards(): void {
+export function displayCards(): void {
   if (cities.length === 0) {
     weatherCardsContainer.textContent = "hi";
   }
@@ -147,6 +155,12 @@ function displayCards(): void {
     })
   );
 }
+
+displayCards();
+window.addEventListener(
+  "load",
+  () => (weatherCardsContainer.style.opacity = "1")
+);
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();

@@ -5,6 +5,7 @@ const modal = <HTMLDivElement>document.querySelector(".error-modal");
 const xIcon = <HTMLDivElement>document.querySelector(".close-modal");
 const closeButton = <HTMLButtonElement>document.querySelector("#btn1");
 const overlay = <HTMLDivElement>document.querySelector("#overlay");
+
 let modalOpen = false;
 
 function toggleErrorModal(): void {
