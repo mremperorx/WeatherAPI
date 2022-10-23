@@ -14,13 +14,7 @@ const scaleSwitch = <HTMLInputElement>(
 );
 const locationBtn = <HTMLButtonElement>document.querySelector("#btn");
 
-let cities = JSON.parse(localStorage.getItem("cities") || "[]");
-
-displayCards();
-window.addEventListener(
-  "load",
-  () => (weatherCardsContainer.style.opacity = "1")
-);
+export let cities = JSON.parse(localStorage.getItem("cities") || "[]");
 
 class City {
   city: string;
@@ -40,7 +34,7 @@ class City {
   }
 }
 
-function save(): void {
+export function save(): void {
   localStorage.setItem("cities", JSON.stringify(cities));
 }
 
@@ -71,22 +65,7 @@ function DisplayWeather(position) {
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=3573b251c5e5d46c32adca397365012a`
   )
     .then((response) => response.json())
-    .then((data) => ShowWeather(data));
-}
-
-function ShowWeather(data: any): void {
-  const cityAndCountry = `${data["name"]}, ${data["sys"]["country"]}`;
-  const realTemperature =
-    Math.round((data["main"]["temp"] * 9) / 5 + 32).toString() + "&deg";
-  const icon = `<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${data.weather[0]["icon"]}.svg">`;
-  const description = data["weather"][0]["main"];
-  const cityCard = new City(cityAndCountry, realTemperature, icon, description);
-
-  cities.push(cityCard);
-  displayCards();
-  scaleSwitch.checked = false;
-  temperatures = [...Array.from(document.querySelectorAll(".temperature"))];
-  save();
+    .then((data) => createCityCard(data));
 }
 
 function createCityCard(data: any): void {
@@ -119,7 +98,7 @@ function createCityCard(data: any): void {
   save();
 }
 
-function displayCards(): void {
+export function displayCards(): void {
   if (cities.length === 0) {
     weatherCardsContainer.textContent = "hi";
   }
@@ -147,6 +126,12 @@ function displayCards(): void {
     })
   );
 }
+
+displayCards();
+window.addEventListener(
+  "load",
+  () => (weatherCardsContainer.style.opacity = "1")
+);
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();

@@ -372,6 +372,18 @@ footer {
     transition: 0.3s ease;
   }
 
+  button {
+    width: calc(20rem + 15vw);
+    height: 3rem;
+    border: none;
+    outline: none;
+    border-radius: 0.4rem;
+    padding: 0 1rem;
+    font-family: "Open Sans", sans-serif;
+    transition: 0.3s ease;
+    background: var(--dark-purple);
+  }
+
   #display::after {
     top: 83%;
     left: 67%;
