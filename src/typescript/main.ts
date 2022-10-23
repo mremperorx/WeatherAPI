@@ -82,6 +82,20 @@ function ShowWeather(data: any): void {
   const description = data["weather"][0]["main"];
   const cityCard = new City(cityAndCountry, realTemperature, icon, description);
 
+  if (description == "Clear") {
+    document.body.style.backgroundImage = "url(src/images/clear.gif)";
+  } else if (description == "Clouds") {
+    document.body.style.backgroundImage = "url('src/images/clouds.gif')";
+  } else if (description == "Haze") {
+    document.body.style.backgroundImage = "url('src/images/Haze.gif')";
+  } else if (description == "Rain") {
+    document.body.style.backgroundImage = "url('src/images/Rain.gif')";
+  } else if (description == "Snow") {
+    document.body.style.backgroundImage = "url('src/images/Snow.gif')";
+  } else if (description == "Thunderstorm") {
+    document.body.style.backgroundImage = "url('src/images/Thunderstorm.gif')";
+  }
+  
   cities.push(cityCard);
   displayCards();
   scaleSwitch.checked = false;
